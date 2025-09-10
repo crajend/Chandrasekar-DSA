@@ -42,6 +42,28 @@ void countNodes(LINKED_LIST *head)
     printf("Number of nodes in the list : %d\n",n);
 }
 
+
+void searchNode(LINKED_LIST *head)
+{
+    LINKED_LIST *p;
+    int n=0,data;
+    
+    printf("Enter the element to serached : ");
+    scanf("%d",&data);
+    
+    for(p=head; p!=NULL; p=p->link) {
+        n++;
+        
+        if(p->info == data)
+            break;
+    }
+
+    if(p != NULL) 
+        printf("Number found at position %d in the list\n",n);
+    else
+        printf("Number not found in the list\n");
+}
+
 LINKED_LIST *insertAtBegin(LINKED_LIST *head,int data)
 {
     LINKED_LIST *temp = (LINKED_LIST*)malloc(sizeof(LINKED_LIST));
@@ -98,6 +120,7 @@ LINKED_LIST *create_list(LINKED_LIST *head)
 }
 
 int main() {
+	// your code goes here
     LINKED_LIST *head = NULL;
     int choice,data,x,k;
     
@@ -130,8 +153,8 @@ int main() {
                             break;
             case COUNT:     countNodes(head); 
                             break;
-            case SEARCH: 
-            break;
+            case SEARCH:    searchNode(head);
+                            break;
             case ADD_BEGIN: printf("\nEnter the element to be inserted at beginning: ");
                             scanf("%d",&data);
                             head = insertAtBegin(head, data);
