@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 
 typedef struct Node{
     int info;
@@ -21,10 +21,88 @@ enum options {
     QUIT
 };
 
+void displayList(LINKED_LIST *head)
+{
+    LINKED_LIST *p;
+    
+    for(p=head; p!=NULL; p=p->link)
+        printf("%d -> ", p->info);
+    printf("NULL\n");
+}
+
+
+void countNodes(LINKED_LIST *head)
+{
+    LINKED_LIST *p;
+    int n=0;
+    
+    for(p=head; p!=NULL; p=p->link)
+        n++;
+
+    printf("Number of nodes in the list : %d\n",n);
+}
+
+LINKED_LIST *insertAtBegin(LINKED_LIST *head,int data)
+{
+    LINKED_LIST *temp = (LINKED_LIST*)malloc(sizeof(LINKED_LIST));
+    
+    temp->info = data;
+    temp->link = head;
+    head = temp;
+    
+    return head;
+}
+
+void insertAtEnd(LINKED_LIST *head,int data)
+{
+    LINKED_LIST *temp = (LINKED_LIST*)malloc(sizeof(LINKED_LIST));
+    LINKED_LIST *p;
+    
+    temp->info = data;
+    temp->link = NULL;
+    
+    if(head != NULL) {
+        p=head;
+        while(p->link != NULL)
+            p=p->link;
+            
+        p->link = temp;
+    }
+    else {
+        head=temp;
+    }
+    
+}
+
+LINKED_LIST *create_list(LINKED_LIST *head)
+{
+    int i,n,data;
+    printf("\nEnter the number of nodes to created : ");
+    scanf("%d",&n);
+    
+    if(n==0)
+        return head;
+        
+    printf("\nEnter the first element to be inserted : ");
+    scanf("%d",&data);
+    
+    head=insertAtBegin(head, data);
+    
+    for(i=2; i<=n; i++) {
+        printf("\nEnter the next element to be inserted : ");
+        scanf("%d",&data);
+        insertAtEnd(head,data);
+    }
+    
+    return head;
+}
+
 int main() {
-    LINKED_LIST *start = NULL;
+	// your code goes here
+    LINKED_LIST *head = NULL;
     int choice,data,x,k;
     
+    head = create_list(head);
     while(1) {
         printf("\n1.Display list\n");
         printf("2.Count of Nodes\n");
@@ -49,17 +127,33 @@ int main() {
         }
         
         switch(choice) {
-            case DISPLAY: break;
-            case COUNT: break;
-            case SEARCH: break;
-            case ADD_BEGIN: break;
-            case ADD_END: break;
-            case ADD_AFTER: break;
-            case ADD_BEFORE: break;
-            case ADD_POS: break;
-            case DELETE: break;
-            case REVERSE: break;
-            default: break;
+            case DISPLAY:   displayList(head);
+                            break;
+            case COUNT:     countNodes(head); 
+                            break;
+            case SEARCH: 
+            break;
+            case ADD_BEGIN: printf("\nEnter the element to be inserted at beginning: ");
+                            scanf("%d",&data);
+                            head = insertAtBegin(head, data);
+                            break;
+            case ADD_END:   printf("\nEnter the element to be inserted at end: ");
+                            scanf("%d",&data);
+                            insertAtEnd(head, data);
+                            break;
+            case ADD_AFTER: 
+            break;
+            case ADD_BEFORE: 
+            break;
+            case ADD_POS: 
+            break;
+            case DELETE: 
+            break;
+            case REVERSE: 
+            break;
+            default: 
+            break;
         }
     }
 }
+
