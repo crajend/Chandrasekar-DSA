@@ -98,7 +98,6 @@ LINKED_LIST *create_list(LINKED_LIST *head)
 }
 
 int main() {
-	// your code goes here
     LINKED_LIST *head = NULL;
     int choice,data,x,k;
     
