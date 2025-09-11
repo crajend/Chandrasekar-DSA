@@ -6,6 +6,9 @@ typedef struct Node{
     struct Node *link;
 }LINKED_LIST;
 
+struct s{
+    struct s *d;
+};
 
 enum options {
     DISPLAY = 1,
@@ -20,6 +23,27 @@ enum options {
     REVERSE,
     QUIT
 };
+
+
+LINKED_LIST *reverseList(LINKED_LIST *head)
+{
+    LINKED_LIST *prevNode, *currNode, *nextNode;
+    
+    prevNode=NULL;
+    currNode=head; 
+    
+    while(currNode != NULL)
+    {
+        nextNode = currNode->link;
+        currNode->link = prevNode;
+        prevNode = currNode;
+        currNode = nextNode;
+    }
+    
+    head = prevNode;
+    
+    return head;
+}
 
 void displayList(LINKED_LIST *head)
 {
@@ -261,6 +285,7 @@ int main() {
     LINKED_LIST *head = NULL;
     int choice,data,val,pos;
     
+
     head = create_list(head);
     while(1) {
         printf("\n1.Display list\n");
@@ -321,11 +346,14 @@ int main() {
             case DELETE: printf("\nEnter the data to be deleted: ");          scanf("%d",&data);
                          head = deleteNode(head,data);
                          break;
-            case REVERSE: 
-            break;
+            case REVERSE: printf("Before reversing the list");
+                          displayList(head);
+                          printf("After reversing the list");
+                          head = reverseList(head); 
+                          displayList(head);
+                          break;
             default: 
             break;
         }
     }
 }
-
