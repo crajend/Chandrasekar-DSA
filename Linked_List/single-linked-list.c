@@ -6,9 +6,6 @@ typedef struct Node{
     struct Node *link;
 }LINKED_LIST;
 
-struct s{
-    struct s *d;
-};
 
 enum options {
     DISPLAY = 1,
